@@ -4,6 +4,7 @@ import routes from "./routes";
 
 import logo from "./assets/images/logo.svg";
 import "./App.css";
+import "semantic-ui-css/semantic.min.css";
 
 const RenderRoute = (route) => {
   document.title = route.title || "TrulyContacts";
