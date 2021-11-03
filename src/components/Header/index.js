@@ -3,6 +3,8 @@ import { Menu, Image, Button, Icon, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.svg";
 
+import isAuthenticated from "../../utils/isAuthenticated";
+
 const Header = () => {
   return (
     <Menu secondary pointing>
@@ -11,23 +13,27 @@ const Header = () => {
         TrulyContacts
       </Menu.Item>
 
-      <Menu.Item position="right">
-        <Input style={{ width: 350 }} placeholder="Search Contacts" />
-      </Menu.Item>
-
-      <Menu.Item position="right">
-        <Button as={Link} to="/contacts/create" primary basic icon>
-          <Icon name="add"></Icon>
-          Create Contact
-        </Button>
-      </Menu.Item>
-
-      <Menu.Item>
-        <Button color="red" basic icon>
-          <Icon name="log out"></Icon>
-          Logout
-        </Button>
-      </Menu.Item>
+      {isAuthenticated() && (
+        <Menu.Item position="right">
+          <Input style={{ width: 350 }} placeholder="Search Contacts" />
+        </Menu.Item>
+      )}
+      {isAuthenticated() && (
+        <Menu.Item position="right">
+          <Button as={Link} to="/contacts/create" primary basic icon>
+            <Icon name="add"></Icon>
+            Create Contact
+          </Button>
+        </Menu.Item>
+      )}
+      {isAuthenticated() && (
+        <Menu.Item>
+          <Button color="red" basic icon>
+            <Icon name="log out"></Icon>
+            Logout
+          </Button>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };

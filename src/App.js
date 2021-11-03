@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 
 import routes from "./routes";
 
@@ -7,10 +12,15 @@ import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 
 import { GlobalProvider } from "./context/Provider";
+import isAuthenticated from "./utils/isAuthenticated";
 
 const RenderRoute = (route) => {
-  document.title = route.title || "TrulyContacts";
+  const history = useHistory();
 
+  document.title = route.title || "TrulyContacts";
+  if (route.needsAuth && !isAuthenticated()) {
+    history.push("/auth/login");
+  }
   return (
     <Route
       path={route.path}
