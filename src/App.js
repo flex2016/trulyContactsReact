@@ -6,6 +6,8 @@ import logo from "./assets/images/logo.svg";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 
+import { GlobalProvider } from "./context/Provider";
+
 const RenderRoute = (route) => {
   document.title = route.title || "TrulyContacts";
 
@@ -21,13 +23,15 @@ const RenderRoute = (route) => {
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          {routes.map((route, index) => (
-            <RenderRoute {...route} key={index} />
-          ))}
-        </Switch>
-      </Router>
+      <GlobalProvider>
+        <Router>
+          <Switch>
+            {routes.map((route, index) => (
+              <RenderRoute {...route} key={index} />
+            ))}
+          </Switch>
+        </Router>
+      </GlobalProvider>
     </div>
   );
 }
