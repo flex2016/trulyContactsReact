@@ -3,6 +3,7 @@ import { GlobalContext } from "../../context/Provider";
 import { register } from "../../context/actions/auth/register";
 import { useHistory } from "react-router-dom";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const [form, setForm] = useState({});
   const [fieldErrors, setFieldErrors] = useState({});
