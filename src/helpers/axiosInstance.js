@@ -1,17 +1,65 @@
+// import axios from "axios";
+
+// const baseURL = process.env.REACT_APP_BACKEND_URL;
+// console.log("🚀 ~ file: axios.js ~ line 4 ~ baseURL", baseURL)
+
+// let headers = {};
+
+// if (localStorage.token) {
+//   headers.Authorization = `Bearer ${localStorage.token}`;
+// }
+
+// const axiosInstance = axios.create({
+//   baseURL: baseURL,
+//   headers,
+// });
+
+// export default axiosInstance;
+
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_BACKEND_URL;
-console.log("🚀 ~ file: axios.js ~ line 4 ~ baseURL", baseURL)
+export default (history = null) => {
+  const baseURL = process.env.REACT_APP_BACKEND_URL;
 
-let headers = {};
 
-if (localStorage.token) {
-  headers.Authorization = `Bearer ${localStorage.token}`;
-}
+  let headers = {};
 
-const axiosInstance = axios.create({
-  baseURL: baseURL,
-  headers,
-});
+  if (localStorage.token) {
+    headers.Authorization = `Bearer ${localStorage.token}`;
+  }
 
-export default axiosInstance;
+  const axiosInstance = axios.create({
+    baseURL: baseURL,
+    headers,
+  });
+
+  axiosInstance.interceptors.response.use(
+    (response) =>
+      new Promise((resolve, reject) => {
+        resolve(response);
+      }),
+    (error) => {
+      if (!error.response) {
+        return new Promise((resolve, reject) => {
+          reject(error);
+        });
+      }
+
+      if (error.response.status === 403) {
+        localStorage.removeItem("token");
+
+        if (history) {
+          history.push("/auth/login");
+        } else {
+          window.location = "/auth/login";
+        }
+      } else {
+        return new Promise((resolve, reject) => {
+          reject(error);
+        });
+      }
+    }
+  );
+
+  return axiosInstance;
+};

@@ -9,7 +9,7 @@ export const login = ({ password, username }) => (dispatch) => {
     type: LOGIN_LOADING,
   });
 
-  axiosInstance
+  axiosInstance()
     .post("/auth/login", {
       password,
       username,

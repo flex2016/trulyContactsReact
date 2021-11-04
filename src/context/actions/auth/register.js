@@ -1,12 +1,3 @@
-// import axiosInstance from "../../../helpers/axiosInstance";
-
-// export const register = () => {
-//   axiosInstance
-//     .post("/auth/register")
-//     .then((res) => console.log("res", res))
-//     .catch((err) => console.log("err", err));
-// };
-
 import axiosInstance from "../../../helpers/axiosInstance";
 import {
   REGISTER_LOADING,
@@ -21,7 +12,7 @@ export const register =
       type: REGISTER_LOADING,
     });
 
-    axiosInstance
+    axiosInstance()
       .post("/auth/register", {
         email,
         password,
