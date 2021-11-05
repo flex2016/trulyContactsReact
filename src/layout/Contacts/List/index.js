@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 import AppHeader from "../../../components/Header";
 import ImageThumb from "../../../components/ImageThumb";
-// import Favorites from "../Favorites";
+import Favorites from "../Favorites";
 
 const ContactsListUI = ({
   deleteContact,
@@ -29,10 +29,10 @@ const ContactsListUI = ({
       <Container>
         <Header>STARRED</Header>
 
-        {/* <Favorites
+        <Favorites
           favorites={currentContacts.filter((item) => item.is_favorite)}
           loading={loading}
-        /> */}
+        />
 
         <Header>ALL</Header>
 
