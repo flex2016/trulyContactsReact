@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +14,7 @@ import "semantic-ui-css/semantic.min.css";
 
 import { GlobalProvider } from "./context/Provider";
 import isAuthenticated from "./utils/isAuthenticated";
+import UserLeaveConfirmation from "./components/UserLeaveConfirmation";
 
 const RenderRoute = (route) => {
   const history = useHistory();
@@ -31,10 +33,20 @@ const RenderRoute = (route) => {
 };
 
 function App() {
+  const [confirmOpen, setConfirmOpen] = useState(true);
   return (
     <div className="App">
       <GlobalProvider>
-        <Router>
+        <Router
+          getUserConfirmation={(message, callback) => {
+            return UserLeaveConfirmation(
+              message,
+              callback,
+              confirmOpen,
+              setConfirmOpen
+            );
+          }}
+        >
           <Switch>
             {routes.map((route, index) => (
               <RenderRoute {...route} key={index} />
