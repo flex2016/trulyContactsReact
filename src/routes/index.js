@@ -1,7 +1,14 @@
+import { lazy } from "react";
+
 import RegisterContainer from "../containers/Register";
 import LoginContainer from "../containers/Login";
-import CreateContactContainer from "../containers/CreateContact";
+// import CreateContactContainer from "../containers/CreateContact";
 import ContactsContainer from "../containers/Contacts";
+
+const CreateContactComponent = lazy(() =>
+  import("../containers/CreateContact")
+);
+
 
 const routes = [
   {
@@ -19,7 +26,7 @@ const routes = [
   },
   {
     path: "/contacts/create",
-    component: CreateContactContainer,
+    component: CreateContactComponent,
     title: "Create Contact",
     needsAuth: true,
   },

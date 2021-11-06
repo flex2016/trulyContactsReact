@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -47,11 +47,13 @@ function App() {
             );
           }}
         >
-          <Switch>
-            {routes.map((route, index) => (
-              <RenderRoute {...route} key={index} />
-            ))}
-          </Switch>
+          <Suspense fallback={<p>Loading</p>}>
+            <Switch>
+              {routes.map((route, index) => (
+                <RenderRoute {...route} key={index} />
+              ))}
+            </Switch>
+          </Suspense>
         </Router>
       </GlobalProvider>
     </div>
